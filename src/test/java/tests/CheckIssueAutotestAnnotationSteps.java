@@ -16,7 +16,7 @@ public class CheckIssueAutotestAnnotationSteps {
     @Severity(SeverityLevel.BLOCKER)
     @Link(value = "Github", url = "https://github.com")
     @DisplayName("Test to check the presence of a issue in the list")
-    public void checkIssueAnnotatedTest(){
+    public void checkIssueAnnotatedTest() {
         steps.openMainPage("https://github.com");
         steps.searchingRepository("eroshenkoam/allure-example");
         steps.goToRepository("eroshenkoam/allure-example");
