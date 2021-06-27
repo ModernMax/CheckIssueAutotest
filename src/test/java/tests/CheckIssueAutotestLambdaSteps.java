@@ -1,8 +1,10 @@
 package tests;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Allure;
 import io.qameta.allure.SeverityLevel;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -20,6 +22,12 @@ public class CheckIssueAutotestLambdaSteps {
     private static final String repository = "eroshenkoam/allure-example";
     private static final String number = "#68";
 
+    @BeforeAll
+    static void setUpConfig(){
+        Configuration.browser = "chrome";
+        Configuration.startMaximized = true;
+    }
+
     @Test
     @DisplayName("Test to check the presence of a issue in the list")
     public void checkIssueLambdaSteps() {
@@ -27,7 +35,7 @@ public class CheckIssueAutotestLambdaSteps {
         Allure.parameter("repository", repository);
         Allure.parameter("number", number);
 
-        Allure.feature("Issue");
+        Allure.feature("Issues");
         Allure.label("owner", "@MaxModern");
         Allure.story("Check Issue visible");
         Allure.label("severity", SeverityLevel.BLOCKER.toString());
@@ -40,16 +48,14 @@ public class CheckIssueAutotestLambdaSteps {
         });
         step("Searching repository " + repository, (s) -> {
             s.parameter("repository", repository);
-            $(".header-search-input").click();
-            $(".header-search-input").sendKeys(repository);
-            $(".header-search-input").submit();
+            $(".header-search-input").setValue(repository).submit();
         });
         step("Go to the repository " + repository, (s) -> {
             s.parameter("repository", repository);
             $(By.linkText(repository)).click();
         });
         step("Go to issue tab", () -> {
-            $(withText("Issue")).click();
+            $(By.cssSelector("[data-content=\"Issues\"]")).click();
         });
         step("Check that the issue with the " + number + " visible", (s) -> {
             s.parameter("number", number);

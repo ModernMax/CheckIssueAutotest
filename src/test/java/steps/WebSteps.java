@@ -17,9 +17,7 @@ public class WebSteps {
 
     @Step("Searching repository {repository}")
     public void searchingRepository(String repository) {
-        $(".header-search-input").click();
-        $(".header-search-input").sendKeys(repository);
-        $(".header-search-input").submit();
+        $(".header-search-input").setValue(repository).submit();
     }
 
     @Step("Go to the repository {repository}")
@@ -29,7 +27,7 @@ public class WebSteps {
 
     @Step("Go to issue tab")
     public void goToIssueTab() {
-        $(withText("Issue")).click();
+        $(By.cssSelector("[data-content=\"Issues\"]")).click();
     }
 
     @Step("Check that the issue with the number {number} visible")
